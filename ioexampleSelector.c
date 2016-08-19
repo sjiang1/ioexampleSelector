@@ -423,6 +423,18 @@ void end_of_field_processor(void *field, size_t field_len, void *output){
       free(field_str);
     break;
   case 7: {// field: parameter value
+    int typelen = strlen(current_parameter->type);
+    char lastc = current_parameter->type[typelen-1];
+    if (lastc == '*'){
+      if (strcmp(field_str, "NULL") != 0
+	  && strcmp(field_str, "null") != 0
+	  && strcmp(field_str, "0") != 0){
+	free(field_str);
+	field_str = malloc(15 * sizeof(char));
+	memcpy(field_str, "memory address", 14);
+	field_str[14] = '\0';
+      }
+    }
     if(return_flag == 0){
       int ret1 = value_list_need_one_value(current_parameter->input_values);
       if(ret1 == 1)
