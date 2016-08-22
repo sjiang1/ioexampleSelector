@@ -37,3 +37,7 @@
 
 # Binary files
 *~
+ioexampleSelector
+ioexamples/
+parameterids.txt
+pickedIOids.txt
