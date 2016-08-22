@@ -424,15 +424,24 @@ void end_of_field_processor(void *field, size_t field_len, void *output){
     break;
   case 7: {// field: parameter value
     int typelen = strlen(current_parameter->type);
+    if (typelen < 1){
+      debug_printf("%s\n", "warning: the type name is empty.\n");
+      exit(EXIT_FAILURE);
+    }
     char lastc = current_parameter->type[typelen-1];
     if (lastc == '*'){
+      char subtypestr[7] = {'\0'};
+      if (typelen > 5){
+	memcpy( subtypestr, &(current_parameter->type[typelen-6]), 6 );
+      } 
       if (strcmp(field_str, "NULL") != 0
 	  && strcmp(field_str, "null") != 0
-	  && strcmp(field_str, "0") != 0){
+	  && strcmp(field_str, "0") != 0
+	  && strcmp(subtypestr, "char *") != 0){
 	free(field_str);
-	field_str = malloc(15 * sizeof(char));
-	memcpy(field_str, "memory address", 14);
-	field_str[14] = '\0';
+	field_str = malloc(17 * sizeof(char));
+	memcpy(field_str, "[memory address]", 16);
+	field_str[16] = '\0';
       }
     }
     if(return_flag == 0){
