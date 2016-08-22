@@ -1,0 +1,36 @@
+Is Return Flag, Function, Call Number, Variable Name, Variable Size, Usage Flags, Variable Type, Value 
+0, av_opt_set_dict, 0, obj, 4, 0x88,void *,0x9edc020
+0, av_opt_set_dict, 0, options, 4, 0x88,AVDictionary *,0xbf976d74
+1, av_opt_set_dict, 0, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 0, obj, 4, 0x88,void *,0x9edc020
+1, av_opt_set_dict, 0, options, 4, 0x88,AVDictionary *,0xbf976d74
+0, av_opt_set_dict, 1, obj, 4, 0x88,void *,0x9edc210
+0, av_opt_set_dict, 1, options, 4, 0x88,AVDictionary *,0xbf976d74
+1, av_opt_set_dict, 1, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 1, obj, 4, 0x88,void *,0x9edc210
+1, av_opt_set_dict, 1, options, 4, 0x88,AVDictionary *,0xbf976d74
+0, av_opt_set_dict, 2, obj, 4, 0x88,void *,0x9edc1a0
+0, av_opt_set_dict, 2, options, 4, 0x88,AVDictionary *,0xbf976d74
+1, av_opt_set_dict, 2, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 2, obj, 4, 0x88,void *,0x9edc1a0
+1, av_opt_set_dict, 2, options, 4, 0x88,AVDictionary *,0xbf976d74
+0, av_opt_set_dict, 3, obj, 4, 0x88,void *,0x9edc3f0
+0, av_opt_set_dict, 3, options, 4, 0x88,AVDictionary *,0xbf976df0
+1, av_opt_set_dict, 3, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 3, obj, 4, 0x88,void *,0x9edc3f0
+1, av_opt_set_dict, 3, options, 4, 0x88,AVDictionary *,0xbf976df0
+0, av_opt_set_dict, 4, obj, 4, 0x88,void *,0x9edc020
+0, av_opt_set_dict, 4, options, 4, 0x88,AVDictionary *,0xbf976df0
+1, av_opt_set_dict, 4, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 4, obj, 4, 0x88,void *,0x9edc020
+1, av_opt_set_dict, 4, options, 4, 0x88,AVDictionary *,0xbf976df0
+0, av_opt_set_dict, 5, obj, 4, 0x88,void *,0x9edc2a0
+0, av_opt_set_dict, 5, options, 4, 0x88,AVDictionary *,0xbf976df0
+1, av_opt_set_dict, 5, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 5, obj, 4, 0x88,void *,0x9edc2a0
+1, av_opt_set_dict, 5, options, 4, 0x88,AVDictionary *,0xbf976df0
+0, av_opt_set_dict, 6, obj, 4, 0x88,void *,0x9edc230
+0, av_opt_set_dict, 6, options, 4, 0x88,AVDictionary *,0xbf976df0
+1, av_opt_set_dict, 6, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 6, obj, 4, 0x88,void *,0x9edc230
+1, av_opt_set_dict, 6, options, 4, 0x88,AVDictionary *,0xbf976df0

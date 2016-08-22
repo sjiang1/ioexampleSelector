@@ -1,0 +1,111 @@
+Is Return Flag, Function, Call Number, Variable Name, Variable Size, Usage Flags, Variable Type, Value 
+0, av_opt_set_dict, 0, obj, 4, 0x88,void *,0xa89f100
+0, av_opt_set_dict, 0, options, 4, 0x88,AVDictionary *,0xbfabab60
+1, av_opt_set_dict, 0, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 0, obj, 4, 0x88,void *,0xa89f100
+1, av_opt_set_dict, 0, options, 4, 0x88,AVDictionary *,0xbfabab60
+0, av_opt_set_dict, 1, obj, 4, 0x88,void *,0xa89f0f0
+0, av_opt_set_dict, 1, options, 4, 0x88,AVDictionary *,0xbfabab60
+1, av_opt_set_dict, 1, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 1, obj, 4, 0x88,void *,0xa89f0f0
+1, av_opt_set_dict, 1, options, 4, 0x88,AVDictionary *,0xbfabab60
+0, av_opt_set_dict, 2, obj, 4, 0x88,void *,0xa89f0c0
+0, av_opt_set_dict, 2, options, 4, 0x88,AVDictionary *,0xbfabab60
+1, av_opt_set_dict, 2, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 2, obj, 4, 0x88,void *,0xa89f0c0
+1, av_opt_set_dict, 2, options, 4, 0x88,AVDictionary *,0xbfabab60
+0, av_opt_set_dict, 3, obj, 4, 0x88,void *,0xa89f090
+0, av_opt_set_dict, 3, options, 4, 0x88,AVDictionary *,0xbfabab60
+1, av_opt_set_dict, 3, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 3, obj, 4, 0x88,void *,0xa89f090
+1, av_opt_set_dict, 3, options, 4, 0x88,AVDictionary *,0xbfabab60
+0, av_opt_set_dict, 4, obj, 4, 0x88,void *,0xa89f6d0
+0, av_opt_set_dict, 4, options, 4, 0x88,AVDictionary *,0xbfabab60
+1, av_opt_set_dict, 4, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 4, obj, 4, 0x88,void *,0xa89f6d0
+1, av_opt_set_dict, 4, options, 4, 0x88,AVDictionary *,0xbfabab60
+0, av_opt_set_dict, 5, obj, 4, 0x88,void *,0xa89f090
+0, av_opt_set_dict, 5, options, 4, 0x88,AVDictionary *,0xbfabab60
+1, av_opt_set_dict, 5, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 5, obj, 4, 0x88,void *,0xa89f090
+1, av_opt_set_dict, 5, options, 4, 0x88,AVDictionary *,0xbfabab60
+0, av_opt_set_dict, 6, obj, 4, 0x88,void *,0xa89f600
+0, av_opt_set_dict, 6, options, 4, 0x88,AVDictionary *,0xbfabab60
+1, av_opt_set_dict, 6, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 6, obj, 4, 0x88,void *,0xa89f600
+1, av_opt_set_dict, 6, options, 4, 0x88,AVDictionary *,0xbfabab60
+0, av_opt_set_dict, 7, obj, 4, 0x88,void *,0xa89f120
+0, av_opt_set_dict, 7, options, 4, 0x88,AVDictionary *,0xbfabab60
+1, av_opt_set_dict, 7, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 7, obj, 4, 0x88,void *,0xa89f120
+1, av_opt_set_dict, 7, options, 4, 0x88,AVDictionary *,0xbfabab60
+0, av_opt_set_dict, 8, obj, 4, 0x88,void *,0xa89f090
+0, av_opt_set_dict, 8, options, 4, 0x88,AVDictionary *,0xbfabab60
+1, av_opt_set_dict, 8, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 8, obj, 4, 0x88,void *,0xa89f090
+1, av_opt_set_dict, 8, options, 4, 0x88,AVDictionary *,0xbfabab60
+0, av_opt_set_dict, 9, obj, 4, 0x88,void *,0xa89f090
+0, av_opt_set_dict, 9, options, 4, 0x88,AVDictionary *,0xbfabab60
+1, av_opt_set_dict, 9, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 9, obj, 4, 0x88,void *,0xa89f090
+1, av_opt_set_dict, 9, options, 4, 0x88,AVDictionary *,0xbfabab60
+0, av_opt_set_dict, 10, obj, 4, 0x88,void *,0xa89f090
+0, av_opt_set_dict, 10, options, 4, 0x88,AVDictionary *,0xbfabab60
+1, av_opt_set_dict, 10, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 10, obj, 4, 0x88,void *,0xa89f090
+1, av_opt_set_dict, 10, options, 4, 0x88,AVDictionary *,0xbfabab60
+0, av_opt_set_dict, 11, obj, 4, 0x88,void *,0xa89f090
+0, av_opt_set_dict, 11, options, 4, 0x88,AVDictionary *,0xbfabab60
+1, av_opt_set_dict, 11, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 11, obj, 4, 0x88,void *,0xa89f090
+1, av_opt_set_dict, 11, options, 4, 0x88,AVDictionary *,0xbfabab60
+0, av_opt_set_dict, 12, obj, 4, 0x88,void *,0xa89f090
+0, av_opt_set_dict, 12, options, 4, 0x88,AVDictionary *,0xbfabab60
+1, av_opt_set_dict, 12, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 12, obj, 4, 0x88,void *,0xa89f090
+1, av_opt_set_dict, 12, options, 4, 0x88,AVDictionary *,0xbfabab60
+0, av_opt_set_dict, 13, obj, 4, 0x88,void *,0xa89f090
+0, av_opt_set_dict, 13, options, 4, 0x88,AVDictionary *,0xbfabab60
+1, av_opt_set_dict, 13, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 13, obj, 4, 0x88,void *,0xa89f090
+1, av_opt_set_dict, 13, options, 4, 0x88,AVDictionary *,0xbfabab60
+0, av_opt_set_dict, 14, obj, 4, 0x88,void *,0xa89f090
+0, av_opt_set_dict, 14, options, 4, 0x88,AVDictionary *,0xbfabab60
+1, av_opt_set_dict, 14, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 14, obj, 4, 0x88,void *,0xa89f090
+1, av_opt_set_dict, 14, options, 4, 0x88,AVDictionary *,0xbfabab60
+0, av_opt_set_dict, 15, obj, 4, 0x88,void *,0xa89f090
+0, av_opt_set_dict, 15, options, 4, 0x88,AVDictionary *,0xbfabab60
+1, av_opt_set_dict, 15, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 15, obj, 4, 0x88,void *,0xa89f090
+1, av_opt_set_dict, 15, options, 4, 0x88,AVDictionary *,0xbfabab60
+0, av_opt_set_dict, 16, obj, 4, 0x88,void *,0xa89f720
+0, av_opt_set_dict, 16, options, 4, 0x88,AVDictionary *,0xbfabab60
+1, av_opt_set_dict, 16, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 16, obj, 4, 0x88,void *,0xa89f720
+1, av_opt_set_dict, 16, options, 4, 0x88,AVDictionary *,0xbfabab60
+0, av_opt_set_dict, 17, obj, 4, 0x88,void *,0xa89f660
+0, av_opt_set_dict, 17, options, 4, 0x88,AVDictionary *,0xbfabab60
+1, av_opt_set_dict, 17, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 17, obj, 4, 0x88,void *,0xa89f660
+1, av_opt_set_dict, 17, options, 4, 0x88,AVDictionary *,0xbfabab60
+0, av_opt_set_dict, 18, obj, 4, 0x88,void *,0xa89f110
+0, av_opt_set_dict, 18, options, 4, 0x88,AVDictionary *,0xbfabab60
+1, av_opt_set_dict, 18, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 18, obj, 4, 0x88,void *,0xa89f110
+1, av_opt_set_dict, 18, options, 4, 0x88,AVDictionary *,0xbfabab60
+0, av_opt_set_dict, 19, obj, 4, 0x88,void *,0xa89f100
+0, av_opt_set_dict, 19, options, 4, 0x88,AVDictionary *,0xbfabab60
+1, av_opt_set_dict, 19, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 19, obj, 4, 0x88,void *,0xa89f100
+1, av_opt_set_dict, 19, options, 4, 0x88,AVDictionary *,0xbfabab60
+0, av_opt_set_dict, 20, obj, 4, 0x88,void *,0xa89f090
+0, av_opt_set_dict, 20, options, 4, 0x88,AVDictionary *,0xbfabab80
+1, av_opt_set_dict, 20, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 20, obj, 4, 0x88,void *,0xa89f090
+1, av_opt_set_dict, 20, options, 4, 0x88,AVDictionary *,0xbfabab80
+0, av_opt_set_dict, 21, obj, 4, 0x88,void *,0xa89f090
+0, av_opt_set_dict, 21, options, 4, 0x88,AVDictionary *,0xbfabab80
+1, av_opt_set_dict, 21, $return_value, 4, 0x101,int,0
+1, av_opt_set_dict, 21, obj, 4, 0x88,void *,0xa89f090
+1, av_opt_set_dict, 21, options, 4, 0x88,AVDictionary *,0xbfabab80
