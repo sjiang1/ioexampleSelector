@@ -208,7 +208,11 @@ void parameter_printf_value_i(struct parameter_entry* p, FILE* output_file, char
   }
 
   if(value != NULL){
-    fprintf(output_file, "%s\t%s\n", p->name, value);
+    if (value[0] == '\0'){
+      fprintf(output_file, "%s\t%s\n", p->name, "[empty string]");
+    }else{
+      fprintf(output_file, "%s\t%s\n", p->name, value);
+    }
   }
 
   if(p->members.size > 0){
@@ -235,7 +239,11 @@ void parameter_printf_value_o(struct parameter_entry* p, FILE* output_file, char
   }
 
   if(value != NULL){
-    fprintf(output_file, "%s\t%s\n", p->name, value);
+    if (value[0] == '\0'){
+      fprintf(output_file, "%s\t%s\n", p->name, "[empty string]");
+    }else{
+      fprintf(output_file, "%s\t%s\n", p->name, value);
+    }
   }
 
   if(p->members.size > 0){
