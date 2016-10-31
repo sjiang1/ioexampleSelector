@@ -195,6 +195,64 @@ int parameter_can_be_null(struct parameter_entry p){
   return 0;
 }
 
+// You must free the result if result is non-NULL.
+char *str_replace(char *orig, char *rep, char *with) {
+  char *result; // the return string
+  char *ins;    // the next insert point
+  char *tmp;    // varies
+  int len_rep;  // length of rep (the string to remove)
+  int len_with; // length of with (the string to replace rep with)
+  int len_front; // distance between rep and end of last rep
+  int count;    // number of replacements
+
+  // sanity checks and initialization
+  if (!orig && !rep)
+    return NULL;
+  len_rep = strlen(rep);
+  if (len_rep == 0)
+    return NULL; // empty rep causes infinite loop during count
+  if (!with)
+    with = "";
+  len_with = strlen(with);
+
+  // count the number of replacements needed
+  ins = orig;
+  for (count = 0; tmp = strstr(ins, rep); ++count) {
+    ins = tmp + len_rep;
+  }
+
+  tmp = result = malloc(strlen(orig) + (len_with - len_rep) * count + 1);
+
+  if (!result)
+    return NULL;
+
+  // first time through the loop, all the variable are set correctly
+  // from here on,
+  //    tmp points to the end of the result string
+  //    ins points to the next occurrence of rep in orig
+  //    orig points to the remainder of orig after "end of rep"
+  while (count--) {
+    ins = strstr(orig, rep);
+    len_front = ins - orig;
+    tmp = strncpy(tmp, orig, len_front) + len_front;
+    tmp = strcpy(tmp, with) + len_with;
+    orig += len_front + len_rep; // move to next "end of rep"
+  }
+  strcpy(tmp, orig);
+  return result;
+}
+
+char *replace_new_lines(char *value){
+  size_t len = strlen(value);
+  int newline_count = 0;
+  char *new_value = str_replace(value, "\r\n", "[fw-newline]");
+  char *new_value1 = str_replace(new_value, "\r", "[fw-newline]");
+  free(new_value);
+  new_value = str_replace(new_value1, "\n", "[fw-newline]");
+  free(new_value1);  
+  return new_value;
+}
+
 void parameter_printf_value_i(struct parameter_entry* p, FILE* output_file, char *run_name, int call_id){
   int index0 = find_matched_value_in_value_list(run_name, call_id, p->input_values);
   int index2 = find_matched_value_in_changed_value_list(run_name, call_id, p->changed_values);
@@ -207,12 +265,15 @@ void parameter_printf_value_i(struct parameter_entry* p, FILE* output_file, char
     value = vector_get(&(p->changed_values.before_values), index2);
   }
 
+  
   if(value != NULL){
-    if (value[0] == '\0'){
+    char *new_value = replace_new_lines(value);
+    if (new_value[0] == '\0'){
       fprintf(output_file, "%s\t%s\n", p->name, "[empty string]");
     }else{
-      fprintf(output_file, "%s\t%s\n", p->name, value);
+      fprintf(output_file, "%s\t%s\n", p->name, new_value);
     }
+    free(new_value);
   }
 
   if(p->members.size > 0){
@@ -239,11 +300,13 @@ void parameter_printf_value_o(struct parameter_entry* p, FILE* output_file, char
   }
 
   if(value != NULL){
-    if (value[0] == '\0'){
+    char *new_value = replace_new_lines(value);
+    if (new_value[0] == '\0'){
       fprintf(output_file, "%s\t%s\n", p->name, "[empty string]");
     }else{
-      fprintf(output_file, "%s\t%s\n", p->name, value);
+      fprintf(output_file, "%s\t%s\n", p->name, new_value);
     }
+    free(new_value);
   }
 
   if(p->members.size > 0){
