@@ -187,18 +187,6 @@ void printf_parameter_ids(Vector parameter_arr, FILE *output_file, int current_f
     else
       fprintf(output_file, "%d\t%d\t%s\t%s\t%s\t\%s\n", current_function_id, current_parameter_id, current_function_name, p->type, p->name, "do not know");
   }
-
-  /*
-  for(int i=0; i<parameter_arr.size; i++){
-    struct parameter_entry* p = vector_get(&parameter_arr, i);
-    printf("%s\t%s\n", p->type, p->name);
-    printf("input: \n");
-    printf_value_list(p->input_values);
-    printf("output: \n");
-    printf_value_list(p->output_values);
-    printf("changed: \n");
-    printf_changed_value_list(p->changed_values);
-    }*/
 }
 
 void printf_io_examples(Vector parameter_arr, char *outputname_prefix){
