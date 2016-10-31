@@ -118,25 +118,26 @@ int get_function_name_and_real_path(struct dirent *dir_ent, const char* parent_d
 }
 
 int get_sub_name_and_real_path(struct dirent *dir_ent, const char* parent_dir,
-				char *output_file_name, char *output_real_path){
+				char *output_real_path){
+  char file_name[PATH_MAX + 1];
   if(strcmp(dir_ent->d_name, ".")== 0 || strcmp(dir_ent->d_name, "..")== 0)
      return 0;
   
   // Get the file name and real path of the file
-  strcpy(output_file_name, parent_dir);
+  strcpy(file_name, parent_dir);
   if(!ends_with(parent_dir, "/"))
-    strcat(output_file_name, "/");
-  strcat(output_file_name, dir_ent->d_name);
-  char *realpath_ret = realpath(output_file_name, output_real_path);
+    strcat(file_name, "/");
+  strcat(file_name, dir_ent->d_name);
+  char *realpath_ret = realpath(file_name, output_real_path);
   if(realpath_ret == NULL){
-    fprintf(stderr, "Cannot get the real path of: %s \n", output_file_name);
+    fprintf(stderr, "Cannot get the real path of: %s \n", file_name);
     fprintf(stderr, "ERROR: %s\n", strerror(errno));
     return 0; 
   }
   return 1;
 }
 
-int try_open_file_and_get_first_line(const char *file_name, const char *file_real_path, char **line_p, int *read_char_number, FILE **fpp){
+int try_open_file_and_get_first_line(const char *file_name, char **line_p, int *read_char_number, FILE **fpp){
   // try to open the file
   FILE * fp;
   char * line = NULL;
@@ -146,14 +147,13 @@ int try_open_file_and_get_first_line(const char *file_name, const char *file_rea
   fp = fopen(file_name, "r");
   if (fp == NULL){
     fprintf(stderr, "Cannot open the file: [%s] \n", file_name);
-    fprintf(stderr, "           real path: [%s] \n", file_real_path);
     fprintf(stderr, "ERROR: %s\n", strerror(errno));
     return -1;
   }
   
   // read the first line, check if there is a line
   if((*read_char_number = getline(&line, &len, fp)) == -1){
-    fprintf(stderr, "No line in file: [%s]\n", file_real_path);
+    fprintf(stderr, "No line in file: [%s]\n", file_name);
     if(line) free(line); // free the buffer that getline creates
     fclose(fp); // close the file
     return -1;
@@ -164,7 +164,7 @@ int try_open_file_and_get_first_line(const char *file_name, const char *file_rea
   if(is_headline_ret == 1){
     // if this is a head line, then we skip this line, and read the second line
     if((*read_char_number = getline(&line, &len, fp)) == -1){
-      fprintf(stderr, "No line except a headline in file: [%s]\n", file_real_path);
+      fprintf(stderr, "No line except a headline in file: [%s]\n", file_name);
       if(line) free(line); // free the buffer that getline creates
       fclose(fp); // close the file
       return -1;
@@ -173,7 +173,7 @@ int try_open_file_and_get_first_line(const char *file_name, const char *file_rea
   
   *fpp = fp;
   *line_p = line;
-  return 0;
+  return len;
 }
 
 void printf_parameter_ids(Vector parameter_arr, FILE *output_file, int current_function_id, const char *current_function_name){
@@ -257,7 +257,7 @@ void copy_head_from_file(const char *source_file, const char*dest_file, int end_
   FILE *source_fp = NULL;
   char *line = NULL;
   int read_char_number = 0;
-  int ret = try_open_file_and_get_first_line(source_file, source_file, &line, &read_char_number, &source_fp);
+  int ret = try_open_file_and_get_first_line(source_file, &line, &read_char_number, &source_fp);
   if(ret == -1) return -1;
 
   FILE *dest_fp = NULL;
