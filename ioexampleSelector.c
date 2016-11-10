@@ -50,8 +50,6 @@ int return_flag;
 struct parameter_entry *current_parameter;
 // marks whether the current_parameter exists in parameter_arr
 int in_parameter_arr;
-// marks whether the current_parameter starts a new call record
-int previous_call_id;
 // stores the current run name
 char *current_run_name;
 
@@ -257,7 +255,6 @@ void global_variables_init(const char *file_name){
   return_flag = 0;
   current_parameter = 0;
   in_parameter_arr = 0;
-  previous_call_id = -1;
   current_run_name = file_name;
 }
 
@@ -338,18 +335,30 @@ void end_of_field_processor(void *field, size_t field_len, void *output){
     long long_id = strtol(field_str, NULL, 10);
     int *call_id = malloc(sizeof(int));
     *call_id = long_id;
-    if(*call_id != previous_call_id){
-      return_flag = 0;
-      previous_call_id = *call_id;
-    }
-
+    
     vector_append(&(current_parameter->input_values.run_names), strcpy_deep(current_run_name));
     vector_append(&(current_parameter->input_values.call_ids), call_id);
     free(field_str);
     break;}
   case 3:{ // field: parameter name
     struct parameter_entry *matched_parameter = find_matched_parameter_in_array(field_str, parameter_arr);
+
+    if(matched_parameter == NULL && current_parameter->name == 0){
+      printf("a new parameter: %s\n", field_str);
+      current_parameter->name = field_str;
+      if(return_flag == 1){
+	// get the call id from the current parameter
+	int *call_id_p = vector_remove_last(&(current_parameter->input_values.call_ids));
+	vector_append(&(current_parameter->output_values.call_ids), call_id_p);
+	char *run_name = vector_remove_last(&(current_parameter->input_values.run_names));
+	vector_append(&(current_parameter->output_values.run_names), run_name);
+      }
+      break;
+    }
+    
     if(matched_parameter != NULL){
+      // find an existing parameter matched with this entry
+      
       free(field_str);
       // get the call id/run name from the current parameter
       int *call_id_p = vector_remove_last(&(current_parameter->input_values.call_ids));
@@ -398,23 +407,15 @@ void end_of_field_processor(void *field, size_t field_len, void *output){
 	debug_printf("%s\n", "error"); 
 	exit(EXIT_FAILURE);
       }
+
+      break;
     }
-    else if(current_parameter->name == 0){
-      printf("a new parameter: %s\n", field_str);
-      current_parameter->name = field_str;
-      if(return_flag == 1){
-	// get the call id from the current parameter
-	int *call_id_p = vector_remove_last(&(current_parameter->input_values.call_ids));
-	vector_append(&(current_parameter->output_values.call_ids), call_id_p);
-	char *run_name = vector_remove_last(&(current_parameter->input_values.run_names));
-	vector_append(&(current_parameter->output_values.run_names), run_name);
-      }
-    }
-    else{
-      fprintf(stderr, "error.\n");
-      debug_printf("%s\n", "error"); 
-      exit(EXIT_FAILURE);}
-    break;}
+    
+    // expected situations
+    fprintf(stderr, "error.\n");
+    debug_printf("%s\n", "error"); 
+    exit(EXIT_FAILURE);
+  }
   case 6: // field: parameter type
     if(current_parameter->type == 0)
       current_parameter->type = field_str;
