@@ -7,12 +7,10 @@ CFLAGS = -std=gnu99 -g -I./includes -w -O0
 LDFLAGS = -g 
 LDLIBS = -lz
 
-ioexampleSelector:ioexampleSelector.o vector.o parameter.o util.o globals.o libs/libcsv.a
+default: ioselect
 
-tests/test_primitive_0_int: 	tests/test_primitive_0_int.o
-tests/test_primitive_0_int_1: 	tests/test_primitive_0_int_1.o
+ioselect: ioexampleSelector.o vector.o parameter.o util.o globals.o libs/libcsv.a
+	$(CC) $(CFLAGS) $^ -o $@
 
 clean:
-	rm -f ioexampleSelector `find -name \*.o` *~ \
-		tests/test_primitive_0_int_1 \
-		tests/test_primitive_0_int
+	rm -f ioselect `find -name \*.o` *~ 
