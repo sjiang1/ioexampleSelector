@@ -37,7 +37,9 @@
 
 # Binary files
 *~
-ioexampleSelector
+ioselect
 ioexamples/
 parameterids.txt
 pickedIOids.txt
+
+FuncwatchResults/
