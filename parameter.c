@@ -4,7 +4,7 @@
 
 #include "parameter.h"
 #include "vector.h"
-
+#include "llist.h"
 
 // functions - value
 void value_list_init(struct value_list *p){
@@ -123,7 +123,6 @@ void parameter_init(struct parameter_entry *p){
   value_list_init(& (p->output_values));
   changed_value_list_init(& (p->changed_values));
   
-  vector_init(&(p->members));
 }
 
 void parameter_inner_free(struct parameter_entry *p){
@@ -136,11 +135,16 @@ void parameter_inner_free(struct parameter_entry *p){
   value_list_inner_free(& (p->output_values));
   changed_value_list_inner_free(& (p->changed_values));
 
-  for(int i=0; i<p->members.size; i++){
-    struct parameter_entry *member = vector_get(&(p->members), i);
-    parameter_inner_free(member);
+}
+
+char *move_beyond_deref_symbol(char *full_name){
+  char *p = full_name;
+  int remaining_len = strlen(full_name);
+  while(p[0] == '*' && remaining_len){
+    p++;
+    remaining_len --;
   }
-  vector_inner_free(& (p->members));
+  return p;
 }
 
 int parameter_name_is_under(const char *name, const char *tmp_name){
@@ -162,27 +166,23 @@ int parameter_name_is_under(const char *name, const char *tmp_name){
   return ret;
 }
 
-struct parameter_entry *find_matched_parameter_in_array(const char *name, Vector *parameter_arr){
+struct parameter_entry *find_matched_parameter_in_array(const char *name, llist parameter_list){
   struct parameter_entry *matched_parameter = NULL;
-  
-  for(int i=0; i<parameter_arr->size; i++){
-    struct parameter_entry *tmp_parameter = vector_get(parameter_arr, i);
+
+  _list_node * node = ( ( _llist * ) parameter_list )->head;
+
+  int index = 0;
+  while(node != NULL){
+    struct parameter_entry *tmp_parameter = (struct parameter_entry *) node->node;
     char *tmp_name = tmp_parameter->name;
+    
     if(strcmp(name, tmp_name) == 0){
       matched_parameter = tmp_parameter;
       break;
     }
-    if(parameter_name_is_under(name, tmp_name)){
-      matched_parameter = find_matched_parameter_in_array(name, &(tmp_parameter->members));
-      if(matched_parameter == NULL){
-	// this name should be a member parameter in tmp_name
-	matched_parameter = malloc(sizeof(struct parameter_entry));
-	parameter_init(matched_parameter);
-	matched_parameter->name = strcpy_deep(name);
-	vector_append(&(tmp_parameter->members), matched_parameter);
-      }
-      break;
-    }
+
+    node = node->next;
+    index ++;
   }
   return matched_parameter;
 }
@@ -276,14 +276,6 @@ void parameter_printf_value_i(struct parameter_entry* p, FILE* output_file, char
     free(new_value);
   }
 
-  if(p->members.size > 0){
-    int length = p->members.size;
-    for(int i=0; i<length; i++){
-      struct parameter_entry* member_p = vector_get(&(p->members), i);
-      parameter_printf_value_i(member_p, output_file, run_name, call_id);
-    }
-  }
-
   return;
 }
 
@@ -307,14 +299,6 @@ void parameter_printf_value_o(struct parameter_entry* p, FILE* output_file, char
       fprintf(output_file, "%s\t%s\n", p->name, new_value);
     }
     free(new_value);
-  }
-
-  if(p->members.size > 0){
-    int length = p->members.size;
-    for(int i=0; i<length; i++){
-      struct parameter_entry* member_p = vector_get(&(p->members), i);
-      parameter_printf_value_o(member_p, output_file, run_name, call_id);
-    }
   }
 
   return;

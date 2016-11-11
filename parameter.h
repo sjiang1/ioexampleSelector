@@ -5,6 +5,7 @@
 #include <string.h>
 
 #include "vector.h"
+#include "llist.h"
 
 // Data structure - global call id
 struct global_call_id{
@@ -49,14 +50,17 @@ struct parameter_entry{
   struct value_list input_values;
   struct value_list output_values;
   struct changed_value_list changed_values;
-  Vector members; // Dynamic array of parameter_entry
 };
 
 void parameter_init(struct parameter_entry* p);
 void parameter_inner_free(struct parameter_entry* p);
-struct parameter_entry *find_matched_parameter_in_array(const char *name, Vector *parameter_arr);
+struct parameter_entry *find_matched_parameter_in_array(const char *name, llist parameter_arr);
 int parameter_can_be_null(struct parameter_entry p);
 void parameter_printf_value_i(struct parameter_entry* p, FILE* output_file, char *run_name, int call_id);
 void parameter_printf_value_o(struct parameter_entry* p, FILE* output_file, char *run_name, int call_id);
 void parameter_randomly_pick_a_call(struct parameter_entry* p, char *output_run_name, int *output_call_id);
 #endif 
+
+// Manipulating parameters names
+char *move_beyond_deref_symbol(char *full_name);
+int parameter_name_is_under(const char *name, const char *tmp_name);

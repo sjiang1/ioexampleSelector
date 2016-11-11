@@ -2,6 +2,12 @@
 #define _UTIL_H
 
 #include "vector.h"
+#include "llist.h"
+
+// String utility functions - declaration
+int ends_with(const char *str, const char *suffix);
+int starts_with(const char *str, const char *prefix);
+char *strcpy_deep(const char *str);
 
 // Utility functions
 void rm_if_file_exists(const char *path);
@@ -15,7 +21,7 @@ int try_open_file_and_get_first_line(const char *file_name, char **line_p, int *
 void copy_head_from_file(const char *source_file, const char*dest_file, int end_line_number);
 void make_sure_new_line_ends(char *line);
 // Utility functions - output results
-void printf_parameter_ids(Vector parameter_arr, FILE* output_file,int current_function_id, const char *current_function_name);
-void printf_io_examples(Vector parameter_arr, char *outputfile_prefix);
+void printf_parameter_ids(llist parameter_arr, FILE* output_file,int current_function_id, const char *current_function_name);
+void printf_io_examples(llist parameter_arr, char *outputfile_prefix);
 
 #endif

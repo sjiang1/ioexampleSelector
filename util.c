@@ -20,6 +20,38 @@
 #include "globals.h"
 
 
+// String utility functions - definition
+int ends_with(const char *str, const char *suffix)
+{
+  if (!str || !suffix)
+    return 0;
+  size_t lenstr = strlen(str);
+  size_t lensuffix = strlen(suffix);
+  if (lensuffix >  lenstr)
+    return 0;
+  return strncmp(str + lenstr - lensuffix, suffix, lensuffix) == 0;
+}
+
+int starts_with(const char *str, const char *prefix)
+{
+  if (!str || !prefix)
+    return 0;
+  size_t lenstr = strlen(str);
+  size_t lenprefix = strlen(prefix);
+  if (lenprefix >  lenstr)
+    return 0;
+  return strncmp(str, prefix, lenprefix) == 0;
+}
+
+char *strcpy_deep(const char *str){
+  size_t str_len = strlen(str) + 1;
+  char *ret = malloc(sizeof(char)*str_len);
+  strcpy(ret, str);
+  return ret;
+}
+
+//
+
 void rm_if_file_exists(const char *path){
   if( access( path, F_OK ) != -1 ) {
     remove(path);
@@ -176,21 +208,29 @@ int try_open_file_and_get_first_line(const char *file_name, char **line_p, int *
   return len;
 }
 
-void printf_parameter_ids(Vector parameter_arr, FILE *output_file, int current_function_id, const char *current_function_name){
+void printf_parameter_ids(llist parameter_list, FILE *output_file, int current_function_id, const char *current_function_name){
   // print the parameters
-  printf("parameter arr: %d\n", parameter_arr.size);
-  for(int i=0; i<parameter_arr.size; i++){
-    int current_parameter_id = i;
-    struct parameter_entry* p = vector_get(&parameter_arr, i);
+  printf("parameter list: %d\n", llist_size(parameter_list));
+
+  int current_parameter_id = 0;
+  _list_node * node = ( ( _llist * ) parameter_list )->head;
+  while(node != NULL){
+    
+    struct parameter_entry* p = (struct parameter_entry *) node->node;
     if(parameter_can_be_null(*p))
       fprintf(output_file, "%d\t%d\t%s\t%s\t%s\t\%s\n", current_function_id, current_parameter_id, current_function_name, p->type, p->name, "can be null");
     else
       fprintf(output_file, "%d\t%d\t%s\t%s\t%s\t\%s\n", current_function_id, current_parameter_id, current_function_name, p->type, p->name, "do not know");
+
+    current_parameter_id ++;
+    node = node->next;
   }
+
+  printf("finished printf parameter ids.\n");
 }
 
-void printf_io_examples(Vector parameter_arr, char *outputname_prefix){
-  if(parameter_arr.size < 1) return;
+void printf_io_examples(llist parameter_list, char *outputname_prefix){
+  if(llist_size(parameter_list) < 1) return;
   
   char output_parameter_i[80];
   char output_parameter_o[80];
@@ -215,23 +255,30 @@ void printf_io_examples(Vector parameter_arr, char *outputname_prefix){
   char run_name[80] = "";
   int call_id = -1;
 
-  struct parameter_entry* p = vector_get(&parameter_arr, 0);
+  _list_node * head =  ( ( _llist * ) parameter_list )->head;
+  struct parameter_entry* p = (struct parameter_entry*) head->node;
+  
   parameter_randomly_pick_a_call(p, run_name, &call_id);
 
   FILE *output_picked_fp = NULL;
   output_picked_fp = fopen (pickedIOids_outputfile, "a" );
   fprintf(output_picked_fp, "%s\t%d\n", run_name, call_id);
   fclose(output_picked_fp);
+
+  _list_node * node = head;
+  int current_parameter_id = 0;
+  while(node != NULL){
     
-  for(int i=0; i<parameter_arr.size; i++){
-    int current_parameter_id = i;
-    p = vector_get(&parameter_arr, i);
+    p = (struct parameter_entry *) node->node;
     if(strcmp(p->name,return_name)==0){
       parameter_printf_value_o(p, output_file_ret, run_name, call_id);
     }else{
       parameter_printf_value_i(p, output_file_i, run_name, call_id);
       parameter_printf_value_o(p, output_file_o, run_name, call_id);
     }
+
+    node = node->next;
+    current_parameter_id ++;
   }
   fclose(output_file_i);
   fclose(output_file_o);

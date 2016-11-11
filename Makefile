@@ -4,13 +4,13 @@
 
 CC = gcc
 CFLAGS = -std=gnu99 -g -I./includes -w -O0
-LDFLAGS = -g 
-LDLIBS = -lz
+LDFLAGS = -g
+LDLIBS = -lz -lpthread
 
 default: ioselect
 
-ioselect: ioexampleSelector.o vector.o parameter.o util.o globals.o libs/libcsv.a
-	$(CC) $(CFLAGS) $^ -o $@
+ioselect: ioexampleSelector.o vector.o parameter.o util.o globals.o libs/*.a libs/*.so
+	$(CC) $(CFLAGS) $^ -o $@ $(LDLIBS)
 
 clean:
 	rm -f ioselect `find -name \*.o` *~ 
