@@ -229,12 +229,12 @@ void printf_parameter_ids(llist parameter_list, FILE *output_file, int current_f
   printf("finished printf parameter ids.\n");
 }
 
-void printf_io_examples(llist parameter_list, char *outputname_prefix){
+void printf_io_examples(llist parameter_list, char *outputname_prefix, Vector *calls){
   if(llist_size(parameter_list) < 1) return;
   
-  char output_parameter_i[80];
-  char output_parameter_o[80];
-  char output_return[80];
+  char output_parameter_i[PATH_MAX+1];
+  char output_parameter_o[PATH_MAX+1];
+  char output_return[PATH_MAX+1];
 
   strcpy(output_parameter_i, outputname_prefix);
   strcpy(output_parameter_o, outputname_prefix);
@@ -252,13 +252,14 @@ void printf_io_examples(llist parameter_list, char *outputname_prefix){
     exit(1);
   }
 
-  char run_name[80] = "";
+  char run_name[PATH_MAX+1] = "";
   int call_id = -1;
 
   _list_node * head =  ( ( _llist * ) parameter_list )->head;
   struct parameter_entry* p = (struct parameter_entry*) head->node;
-  
+
   parameter_randomly_pick_a_call(p, run_name, &call_id);
+  // randomly_pick_a_call(calls, &call_id); // to be debugged
 
   FILE *output_picked_fp = NULL;
   output_picked_fp = fopen (pickedIOids_outputfile, "a" );
