@@ -270,13 +270,35 @@ void printf_io_examples(llist parameter_list, char *outputname_prefix){
   while(node != NULL){
     
     p = (struct parameter_entry *) node->node;
-    if(strcmp(p->name,return_name)==0){
+
+    char *tmp = move_beyond_deref_symbol(p->name);
+    char *trim_param_name = strcpy_deep(p);
+    char *dotPos = strchr(trim_param_name, '.');
+    char *dashPos = strchr(trim_param_name, '-');
+    
+    int isReturnValue = 0;
+    if(!dotPos && !dashPos && strcmp(trim_param_name,return_name)==0){
+      isReturnValue = 1;
+    }
+    else if(dotPos || dashPos){
+      if(dotPos)
+	*dotPos = '\0';
+      if(dashPos)
+	*dashPos = '\0';
+
+      if(strcmp(trim_param_name, return_name) == 0)
+	isReturnValue = 1;
+    }
+    free(trim_param_name);
+
+    if(isReturnValue){
       parameter_printf_value_o(p, output_file_ret, run_name, call_id);
-    }else{
+    }
+    else{
       parameter_printf_value_i(p, output_file_i, run_name, call_id);
       parameter_printf_value_o(p, output_file_o, run_name, call_id);
     }
-
+    
     node = node->next;
     current_parameter_id ++;
   }
