@@ -251,7 +251,7 @@ void parameter_printf_value_i(struct parameter_entry* p, FILE* output_file, char
   if(value != NULL){
     char *new_value = replace_new_lines(value);
     if (new_value[0] == '\0'){
-      fprintf(output_file, "%s\t%s\n", p->name, "[empty string]");
+      fprintf(output_file, "%s\t%s\n", p->name, "");
     }else{
       fprintf(output_file, "%s\t%s\n", p->name, new_value);
     }
