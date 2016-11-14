@@ -147,24 +147,6 @@ char *move_beyond_deref_symbol(char *full_name){
   return p;
 }
 
-int parameter_name_is_under(const char *name, const char *tmp_name){
-  size_t name_len = strlen(name);
-  size_t tmp_len = strlen(tmp_name) + 1; // trailing zero
-  if(name_len <= tmp_len){
-    return 0;
-  }
-  
-  int ret = 0;
-  char *tmp_name_dot = malloc(sizeof(char) * (tmp_len + 1));
-  strcpy(tmp_name_dot, tmp_name);
-  tmp_name_dot[tmp_len - 1]='.';
-  tmp_name_dot[tmp_len] = '\0';
-  if(starts_with(name, tmp_name_dot)){
-    ret = 1;
-  }
-  free(tmp_name_dot);
-  return ret;
-}
 
 struct parameter_entry *find_matched_parameter_in_array(const char *name, llist parameter_list){
   struct parameter_entry *matched_parameter = NULL;

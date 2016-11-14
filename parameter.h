@@ -63,4 +63,3 @@ void parameter_randomly_pick_a_call(struct parameter_entry* p, char *output_run_
 
 // Manipulating parameters names
 char *move_beyond_deref_symbol(char *full_name);
-int parameter_name_is_under(const char *name, const char *tmp_name);
