@@ -6,10 +6,11 @@ CC = gcc
 CFLAGS = -std=gnu99 -g -I./includes -w -O0
 LDFLAGS = -g
 LDLIBS = -lz -lpthread
+current_dir = $(shell pwd)
 
 default: ioselect
 
-ioselect: ioexampleSelector.o vector.o parameter.o util.o globals.o libs/*.a libs/*.so
+ioselect: ioexampleSelector.o vector.o parameter.o util.o globals.o libs/*.a $(current_dir)/libs/*.so
 	$(CC) $(CFLAGS) $^ -o $@ $(LDLIBS)
 
 clean:
