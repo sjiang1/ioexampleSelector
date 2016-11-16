@@ -229,7 +229,7 @@ void printf_parameter_ids(llist parameter_list, FILE *output_file, int current_f
   printf("finished printf parameter ids.\n");
 }
 
-void printf_io_examples(llist parameter_list, char *outputname_prefix, Vector *calls){
+void printf_io_examples(llist parameter_list, char *outputname_prefix/*, Vector *calls*/){
   if(llist_size(parameter_list) < 1) return;
   
   char output_parameter_i[PATH_MAX+1];
